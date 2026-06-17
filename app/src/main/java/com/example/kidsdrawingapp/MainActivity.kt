@@ -30,6 +30,7 @@ import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import androidx.core.graphics.createBitmap
 
 
 class MainActivity : AppCompatActivity() {
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                     val pickIntent = Intent(
                         Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                    );
+                    )
                     openGalleryLauncher.launch(pickIntent)
                 } else {
                     if (permissionName == Manifest.permission.READ_EXTERNAL_STORAGE) {
@@ -194,10 +195,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun getBitmapFromView(view: View): Bitmap {
-        val returnedBitmap = Bitmap.createBitmap(
-            view.width,
-            view.height, Bitmap.Config.ARGB_8888
-        )
+        val returnedBitmap = createBitmap(view.width, view.height)
 
         val canvas = Canvas(returnedBitmap)
         view.background?.draw(canvas)
