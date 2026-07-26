@@ -5,12 +5,15 @@ import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -27,6 +30,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
+import androidx.core.graphics.drawable.toDrawable
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -99,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
         brushDialog.setContentView(R.layout.dialog_brush_size)
 
-        brushDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        brushDialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
 
         brushDialog.findViewById<View>(R.id.ib_small_brush).setOnClickListener {
             drawingView?.setSizeForBrush(10f)
@@ -117,6 +122,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         brushDialog.show()
+
+        brushDialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+
+        brushDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     fun paintClicked(view: View) {
